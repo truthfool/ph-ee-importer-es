@@ -32,9 +32,8 @@ reporting:
     ams: true
     clientCorrelationId: true
     currency: true
-    customData:
-      enabled: true
-      confirmationReceived: true
+    customData: false
+    confirmationReceived: false
     errorCode: false
     errorDescription: true
     errorInformation: true

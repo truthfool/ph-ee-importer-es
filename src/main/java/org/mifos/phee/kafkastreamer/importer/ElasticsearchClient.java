@@ -27,7 +27,6 @@ import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.common.xcontent.XContentHelper;
 import org.elasticsearch.common.xcontent.XContentType;
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,14 +144,6 @@ public class ElasticsearchClient {
                     } else if (valueObj.getString("name").equalsIgnoreCase("originDate")) {
                         Instant timestamp = Instant.ofEpochMilli(valueObj.getLong("value"));
                         newRecord.put((String) valueObj.get("name"), timestamp);
-                    } else if (valueObj.getString("name").equalsIgnoreCase("customData")) {
-                        JSONArray customDataArray = valueObj.getJSONArray("customData");
-                        for (int i = 0; i < customDataArray.length(); i++) {
-                            JSONObject customData = customDataArray.getJSONObject(i);
-                            newRecord.put(customData.getString("key").replaceAll("\"", ""),
-                                    customData.getString("value")
-                                            .replaceAll("\"", ""));
-                        }
                     } else {
                         newRecord.put((String) valueObj.get("name"), valueObj.get("value").toString()
                                 .replaceAll("\"", ""));
